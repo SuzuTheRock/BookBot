@@ -1,8 +1,10 @@
 def main():
     book_path = "books/frankenstein.txt"
     text = read_the_text(book_path)
+#    letter_amounts = {}
     count(text)
     letter_count(text)
+#    dictionary_sort(letter_amounts)
 
 def read_the_text(book_path):
     with open(book_path) as f:
@@ -47,8 +49,30 @@ def letter_count(text):
     lowered_text = text.lower()
     for letter in lowered_text:
         if letter in letter_amounts:
-            letter_amounts += 1
-    print(letter_amounts)
+            letter_amounts[letter] += 1
+
+# i can't figure out how to get the dictionary to carry across functions, so i tried 
+# not making a seperate function, but i know there must be a way. 
+#    sorted_dict = list(letter_amounts.items())
+#    sorted_dict.sort(reverse=True, key=sort_on)
+#    print(letter_amounts)
+#    print(sorted_dict)
+            
+    return letter_amounts
+
+# the proper attempt at making a sorting funtion. line 65 came from boot.dev, and i dont
+# quite understand it yet. sort_on is the name of a function from boot.dev, see screenshots.
+
+def dictionary_sort(letter_amounts):
+    sorted_dict = list(letter_amounts.items())
+    sorted_dict.sort(reverse=True, key=sort_on)
+
+
+# unfinished report that will print out once i finished the sorting function.
+    
+def report(word_count, sorted_dict):
+        print(f"{word_count} words found in the document")
+
 
 if __name__ == "__main__":
-    main()
+    main() 
