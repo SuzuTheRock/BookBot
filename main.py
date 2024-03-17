@@ -1,10 +1,14 @@
 def main():
     book_path = "books/frankenstein.txt"
     text = read_the_text(book_path)
-#    letter_amounts = {}
+    word_count = count(text)
+    letter_amounts = letter_count(text)
+    dict_list = dict_lister(letter_amounts)
     count(text)
     letter_count(text)
-#    dictionary_sort(letter_amounts)
+    dict_lister(letter_amounts)
+    dictionary_sort(dict_list)
+    report(book_path, word_count, dict_list)
 
 def read_the_text(book_path):
     with open(book_path) as f:
@@ -15,7 +19,7 @@ def count(text):
     words = text.split()
     for word in words:
         word_count += 1
-    print(word_count)
+    return word_count
 
 def letter_count(text):
     letter_amounts = {
@@ -50,28 +54,29 @@ def letter_count(text):
     for letter in lowered_text:
         if letter in letter_amounts:
             letter_amounts[letter] += 1
-
-# i can't figure out how to get the dictionary to carry across functions, so i tried 
-# not making a seperate function, but i know there must be a way. 
-#    sorted_dict = list(letter_amounts.items())
-#    sorted_dict.sort(reverse=True, key=sort_on)
-#    print(letter_amounts)
-#    print(sorted_dict)
             
     return letter_amounts
 
-# the proper attempt at making a sorting funtion. line 65 came from boot.dev, and i dont
-# quite understand it yet. sort_on is the name of a function from boot.dev, see screenshots.
 
-def dictionary_sort(letter_amounts):
-    sorted_dict = list(letter_amounts.items())
-    sorted_dict.sort(reverse=True, key=sort_on)
+def dict_lister(letter_amounts):
+    dict_list = [{"letter": l, "value": v} for l, v in letter_amounts.items()]
+    return dict_list
 
+def sort_on(dict_list):
+    return dict_list["value"]
 
-# unfinished report that will print out once i finished the sorting function.
+def dictionary_sort(dict_list):
+    dict_list.sort(reverse=True, key=sort_on)
+    return dict_list
+
     
-def report(word_count, sorted_dict):
-        print(f"{word_count} words found in the document")
+def report(book_path, word_count, dict_list):
+        print(f"--- Begin report of {book_path} --- \r\n")
+        print(f"{word_count} words found in the document \r\n")
+        for f in dict_list:
+#            print("the " + f["letter"] + " character was found " + f["value"] + " times")
+            print(f"the {f["letter"]} character was found {f["value"]} times")
+        print("--- End report---")
 
 
 if __name__ == "__main__":
