@@ -74,7 +74,6 @@ def report(book_path, word_count, dict_list):
         print(f"--- Begin report of {book_path} --- \r\n")
         print(f"{word_count} words found in the document \r\n")
         for f in dict_list:
-#            print("the " + f["letter"] + " character was found " + f["value"] + " times")
             print(f"the {f["letter"]} character was found {f["value"]} times")
         print("--- End report---")
 
